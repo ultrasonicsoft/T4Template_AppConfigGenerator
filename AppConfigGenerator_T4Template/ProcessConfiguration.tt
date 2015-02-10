@@ -1,0 +1,88 @@
+﻿<#@ template language="C#" hostspecific="True" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Xml" #>
+<#@ assembly name="System.Xml.Linq" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Xml.Linq" #>
+<#@ import namespace="Microsoft.VisualStudio.TextTemplating" #>
+<#@ include file="ProcessTemplate.tt" #>
+<#@ import namespace="System.Runtime.Remoting.Messaging" #>
+
+<#+
+  void ProcessConfiguration(string configurationFileName, string logFileName)
+  {
+	
+	StringBuilder logBuilder = new StringBuilder();
+
+	logBuilder.Append("Processing configuration file:" + configurationFileName);
+
+	// read template base directory and form log file path
+	string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+	string outputFilePath = Path.Combine(templateDirectory, logFileName);
+	
+	logBuilder.Append("Template Directory: " + configurationFileName);
+	logBuilder.Append(Environment.NewLine);
+
+	// Process configuration.xml file	
+	XElement doc = XElement.Load(Host.ResolvePath(configurationFileName));
+    var docNamespace = doc.Name.Namespace;
+
+    var baseTemplateFileName = doc.Element("BaseAppConfigTemplateFile").Value;
+	
+	logBuilder.Append("Base Template File Name : " + baseTemplateFileName);
+	logBuilder.Append(Environment.NewLine);
+
+    var settings = (from message in doc.Elements("Setting")
+                    select new
+                    {
+						EnvironmentKey = message.Attribute("environmentKey").Value,
+						DeploymentPath = message.Element("DeploymentPath").Value,
+						OutputFileExt = message.Element("OutputFileExt").Value,
+						Properties = message.Element("Properties").Elements("Property")
+											.Select(x =>
+												new
+												{
+													Key = x.Attribute("key").Value,
+													Value = x.Attribute("value").Value
+												}).ToList()
+                    });
+
+	string templateOutputFileName;
+	foreach (var currentSetting in settings)
+    {
+		
+		logBuilder.Append("Reading environment key: " + currentSetting.EnvironmentKey);
+		logBuilder.Append(Environment.NewLine);
+
+		// Read current output file name 
+		templateOutputFileName = string.Format("App.{0}",currentSetting.OutputFileExt);
+        
+		logBuilder.Append("Reading Properties: ");
+		foreach (var property in currentSetting.Properties)
+        {
+			logBuilder.Append(Environment.NewLine);
+			logBuilder.Append("Key: " + property.Key);
+
+			logBuilder.Append(Environment.NewLine);
+			logBuilder.Append("Value: " + property.Value);
+
+			CallContext.SetData(property.Key, property.Value );   
+        }
+
+		// Generate app.config file
+		ProcessTemplate(baseTemplateFileName, templateOutputFileName);
+		
+		string deploymentFileFullPath = Path.Combine(templateDirectory, currentSetting.DeploymentPath);
+		
+		logBuilder.Append(Environment.NewLine);
+		logBuilder.Append("Deployment Path: " + deploymentFileFullPath);
+
+		File.Copy(Host.ResolvePath(templateOutputFileName),deploymentFileFullPath,true); 
+    }
+    File.WriteAllText(outputFilePath, logBuilder.ToString());
+
+  }
+#>

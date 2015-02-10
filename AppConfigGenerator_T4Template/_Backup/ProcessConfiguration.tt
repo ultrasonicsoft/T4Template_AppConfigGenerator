@@ -1,0 +1,87 @@
+﻿<#@ template language="C#" hostspecific="True" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Xml" #>
+<#@ assembly name="System.Xml.Linq" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Xml.Linq" #>
+<#@ import namespace="Microsoft.VisualStudio.TextTemplating" #>
+<#@ include file="ProcessTemplate.tt" #>
+<#@ import namespace="System.Runtime.Remoting.Messaging" #>
+
+<#+
+  void ProcessConfiguration(string configurationFileName, string outputFileName)
+  {
+
+	string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+	string outputFilePath = Path.Combine(templateDirectory, outputFileName);
+		
+	XElement doc = XElement.Load(Host.ResolvePath(configurationFileName));
+        var docNamespace = doc.Name.Namespace;
+        var templateName = doc.Element(docNamespace + "Dev1");
+
+        var settings = (from message in doc.Elements("Setting")
+                        select new
+                        {
+                            Id = message.Element("Id").Value,
+                                    TemplateFileName = message.Element("TemplateFileName").Value,
+                                    OutputFileExt = message.Element("OutputFileExt").Value,
+                                    DeploymentPath = message.Element("DeploymentPath").Value,
+                                    Properties = message.Element("Properties").Elements("Property")
+                                                        .Select(x =>
+                                                            new
+                                                            {
+                                                                Name = x.Element("Name").Value,
+                                                                Value = x.Element("Value").Value
+                                                            }).ToList()
+                        });
+
+	string templateFileName;
+	string templateOutputFileName;
+	string basePropertyPath;
+	StringBuilder builder = new StringBuilder();
+    
+	foreach (var currentSetting in settings)
+    {
+		// Read current Template file name  
+		templateFileName = string.Format("{0}.tt", currentSetting.TemplateFileName);
+
+		// Read current output file name 
+		templateOutputFileName = string.Format("{0}.{1}",currentSetting.TemplateFileName, 
+														 currentSetting.OutputFileExt);
+		
+		builder.Append(templateFileName);
+		builder.Append(Environment.NewLine);
+		builder.Append(templateOutputFileName);
+		builder.Append(Environment.NewLine);
+        
+		foreach (var property in currentSetting.Properties)
+        {
+			builder.Append(Environment.NewLine);
+			//builder.Append(basePropertyPath);
+
+			builder.Append(Environment.NewLine);
+			builder.Append(property.Name);
+
+			builder.Append(Environment.NewLine);
+			builder.Append(property.Value);
+
+			CallContext.SetData(property.Name,property.Value );   
+			//CallContext.SetData(basePropertyPath, property.Value);    
+        }
+
+		// Generate app.config file
+		ProcessTemplate(templateFileName, templateOutputFileName);
+		
+	string deploymentFileFullPath = Path.Combine(templateDirectory, currentSetting.DeploymentPath);
+			builder.Append(deploymentFileFullPath);
+
+		File.Copy(Host.ResolvePath(templateOutputFileName),deploymentFileFullPath,true); 
+    }
+
+    File.WriteAllText(outputFilePath, builder.ToString());
+
+  }
+#>

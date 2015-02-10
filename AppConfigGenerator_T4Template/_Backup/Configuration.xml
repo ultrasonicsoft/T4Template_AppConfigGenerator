@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AppConfigSettings>
+  <Setting>
+    <Id>Dev1</Id>
+    <TemplateFileName>Dev1</TemplateFileName>
+    <DeploymentPath>AppConfigs\Dev1\App.config</DeploymentPath>
+    <OutputFileExt>txt</OutputFileExt>
+    <Properties>
+      <Property>
+        <Name>Dev1.LogFileName</Name>
+        <Value>Dev1_LogFile.txt</Value>
+      </Property>
+      <Property>
+        <Name>Dev1.FTPServer</Name>
+        <Value>ftp://balram@95.89.83.26:64888/Dev1</Value>
+      </Property>
+      <Property>
+        <Name>Dev1.ServiceEndPoint</Name>
+        <Value>http://91.229.79.95:808/DownloadDataProviderService_Dev1.svc</Value>
+      </Property>
+    </Properties>
+  </Setting>
+  <Setting>
+    <Id>Dev2</Id>
+    <TemplateFileName>Dev2</TemplateFileName>
+    <DeploymentPath>AppConfigs\Dev2\App.config</DeploymentPath>
+    <OutputFileExt>txt</OutputFileExt>
+    <Properties>
+      <Property>
+        <Name>Dev2.LogFileName</Name>
+        <Value>Dev2_LogFile.txt</Value>
+      </Property>
+      <Property>
+        <Name>Dev2.FTPServer</Name>
+        <Value>ftp://balram@95.89.83.26:64888/Dev2</Value>
+      </Property>
+      <Property>
+        <Name>Dev2.ServiceEndPoint</Name>
+        <Value>http://92.229.79.95:808/DownloadDataProviderService_Dev2.svc</Value>
+      </Property>
+    </Properties>
+  </Setting>
+</AppConfigSettings>

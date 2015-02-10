@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AppConfigSettings>
+  <BaseAppConfigTemplateFile>BaseAppConfig.tt</BaseAppConfigTemplateFile>
+  <Setting environmentKey ="Dev1">
+    <DeploymentPath>AppConfigs\Dev1\App.config</DeploymentPath>
+    <OutputFileExt>txt</OutputFileExt>
+    <Properties>
+      <Property key="Dev1.LogFileName" value="Dev1_LogFile.txt"/>
+      <Property key="Dev1.FTPServer" value="ftp://balram@95.89.83.26:64888/Dev1"/>
+      <Property key="Dev1.ServiceEndPoint" value="http://91.229.79.95:808/DownloadDataProviderService_Dev1.svc"/>
+    </Properties>
+  </Setting>
+</AppConfigSettings>
