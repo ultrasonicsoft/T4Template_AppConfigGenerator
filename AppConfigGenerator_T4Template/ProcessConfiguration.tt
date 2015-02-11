@@ -51,6 +51,7 @@
                     });
 
 	string templateOutputFileName;
+	string completeKeyName;
 	foreach (var currentSetting in settings)
     {
 		
@@ -63,17 +64,19 @@
 		logBuilder.Append("Reading Properties: ");
 		foreach (var property in currentSetting.Properties)
         {
+			completeKeyName = string.Format("{0}.{1}",baseTemplateFileName,property.Key);
+
 			logBuilder.Append(Environment.NewLine);
-			logBuilder.Append("Key: " + property.Key);
+			logBuilder.Append("Key: " + completeKeyName);
 
 			logBuilder.Append(Environment.NewLine);
 			logBuilder.Append("Value: " + property.Value);
-
-			CallContext.SetData(property.Key, property.Value );   
+			
+			CallContext.SetData(completeKeyName, property.Value );   
         }
 
 		// Generate app.config file
-		ProcessTemplate(baseTemplateFileName, templateOutputFileName);
+		ProcessTemplate(baseTemplateFileName + ".tt", templateOutputFileName);
 		
 		string deploymentFileFullPath = Path.Combine(templateDirectory, currentSetting.DeploymentPath);
 		

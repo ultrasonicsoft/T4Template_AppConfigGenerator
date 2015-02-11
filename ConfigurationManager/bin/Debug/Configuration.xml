@@ -10,13 +10,13 @@
       <Property key="ServiceEndPoint" value="http://91.229.79.95:808/DownloadDataProviderService_Dev1.svc"/>
     </Properties>
   </Setting>
-  <!--<Setting environmentKey ="Dev1">
+  <Setting environmentKey ="Dev2">
     <DeploymentPath>AppConfigs\Dev2\App.config</DeploymentPath>
     <OutputFileExt>txt</OutputFileExt>
     <Properties>
-      <Property key="BaseAppConfig.LogFileName" value="NewDev2_LogFile.txt"/>
-      <Property key="BaseAppConfig.FTPServer" value="ftp://balram@95.89.83.26:64888/Dev2"/>
-      <Property key="BaseAppConfig.ServiceEndPoint" value="http://91.229.79.95:808/DownloadDataProviderService_Dev2.svc"/>
+      <Property key="LogFileName" value="NewDev2_LogFile.txt"/>
+      <Property key="FTPServer" value="ftp://balram@95.89.83.26:64888/Dev2"/>
+      <Property key="ServiceEndPoint" value="http://91.229.79.95:808/DownloadDataProviderService_Dev2.svc"/>
     </Properties>
-  </Setting>-->
+  </Setting>
 </AppConfigSettings>

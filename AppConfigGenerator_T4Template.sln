@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppConfigGenerator_T4Template", "AppConfigGenerator_T4Template\AppConfigGenerator_T4Template.csproj", "{DEA8EB3C-1C8B-4098-AF09-B25FCEA868EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConfigurationManager", "ConfigurationManager\ConfigurationManager.csproj", "{AFC0502F-7C0E-4814-BDC0-12C83FAF812F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{DEA8EB3C-1C8B-4098-AF09-B25FCEA868EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEA8EB3C-1C8B-4098-AF09-B25FCEA868EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEA8EB3C-1C8B-4098-AF09-B25FCEA868EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFC0502F-7C0E-4814-BDC0-12C83FAF812F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFC0502F-7C0E-4814-BDC0-12C83FAF812F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFC0502F-7C0E-4814-BDC0-12C83FAF812F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFC0502F-7C0E-4814-BDC0-12C83FAF812F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

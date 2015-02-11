@@ -3,7 +3,6 @@
 <#@ import namespace="System.Runtime.Remoting.Messaging" #>
 <?xml version="1.0"?>
 <configuration>
- 
   <configSections>
     <section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net"/>
     
@@ -83,14 +82,14 @@
 <#+
     string LogFileName
   {
-  get { return (string)CallContext.GetData("Dev1.LogFileName"); }
+  get { return (string)CallContext.GetData("BaseAppConfig.LogFileName"); }
   }
   string FTPServer
   {
-  get { return (string)CallContext.GetData("Dev1.FTPServer"); }
+  get { return (string)CallContext.GetData("BaseAppConfig.FTPServer"); }
   }
   string ServiceEndPoint
   {
-  get { return (string)CallContext.GetData("Dev1.ServiceEndPoint"); }
+  get { return (string)CallContext.GetData("BaseAppConfig.ServiceEndPoint"); }
   }
   #>

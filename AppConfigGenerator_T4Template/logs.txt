@@ -1,11 +1,11 @@
 Processing configuration file:Configuration.xmlTemplate Directory: Configuration.xml
-Base Template File Name : BaseAppConfig.tt
+Base Template File Name : BaseAppConfig
 Reading environment key: Dev1
 Reading Properties: 
-Key: Dev1.LogFileName
-Value: Dev1_LogFile.txt
-Key: Dev1.FTPServer
+Key: BaseAppConfig.LogFileName
+Value: NewDev1_LogFile.txt845
+Key: BaseAppConfig.FTPServer
 Value: ftp://balram@95.89.83.26:64888/Dev1
-Key: Dev1.ServiceEndPoint
+Key: BaseAppConfig.ServiceEndPoint
 Value: http://91.229.79.95:808/DownloadDataProviderService_Dev1.svc
 Deployment Path: C:\Users\Balram\Documents\Visual Studio 2013\Projects\AppConfigGenerator_T4Template\AppConfigGenerator_T4Template\AppConfigs\Dev1\App.config
